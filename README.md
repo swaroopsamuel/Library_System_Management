@@ -7,7 +7,7 @@
 
 This project demonstrates the implementation of a Library Management System using SQL. It includes creating and managing tables, performing CRUD operations, and executing advanced SQL queries. The goal is to showcase skills in database design, manipulation, and querying.
 
-![Library_project](https://github.com/najirh/Library-System-Management---P2/blob/main/library.jpg)
+![Library_project](https://github.com/swaroopsamuel/Library_System_Management/blob/main/Library%20cover%20picture.jpg)
 
 ## Objectives
 
@@ -407,7 +407,21 @@ GROUP BY 1, 2
 
 **Task 18: Identify Members Issuing High-Risk Books**  
 Write a query to identify members who have issued books more than twice with the status "damaged" in the books table. Display the member name, book title, and the number of times they've issued damaged books.    
+```sql
+SELECT 
+    m.member_name,
+    ist.issued_book_name,
+    COUNT(ist.issued_id) AS times_issued_damaged
+FROM issued_status AS ist
+JOIN members AS m 
+    ON m.member_id = ist.issued_member_id
+JOIN return_status AS rts 
+    ON rts.issued_id = ist.issued_id
+WHERE rts.book_quality LIKE 'damaged'  
+GROUP BY m.member_name, ist.issued_book_name
+HAVING COUNT(ist.issued_id) > 2;
 
+```
 
 **Task 19: Stored Procedure**
 Objective:
@@ -486,7 +500,25 @@ Description: Write a CTAS query to create a new table that lists each member and
     Number of overdue books
     Total fines
 
+```sql
+CREATE TABLE fined_members
 
+AS
+
+SELECT 
+	ist.issued_member_id,
+	COUNT(ist.issued_id) AS overdue_books,
+	SUM((CURRENT_DATE - ist.issued_date - 30) * 0.50) AS total_fines
+FROM issued_status AS ist
+LEFT JOIN return_status AS rts
+		ON ist.issued_id  = rts.issued_id 
+WHERE (CURRENT_DATE - ist.issued_date) > 30
+AND rts.return_id is NULL
+GROUP BY 1;
+
+
+SELECT * FROM fined_members
+```
 
 ## Reports
 
@@ -498,24 +530,7 @@ Description: Write a CTAS query to create a new table that lists each member and
 
 This project demonstrates the application of SQL skills in creating and managing a library management system. It includes database setup, data manipulation, and advanced querying, providing a solid foundation for data management and analysis.
 
-## How to Use
-
-1. **Clone the Repository**: Clone this repository to your local machine.
-   ```sh
-   git clone https://github.com/najirh/Library-System-Management---P2.git
-   ```
-
-2. **Set Up the Database**: Execute the SQL scripts in the `database_setup.sql` file to create and populate the database.
-3. **Run the Queries**: Use the SQL queries in the `analysis_queries.sql` file to perform the analysis.
-4. **Explore and Modify**: Customize the queries as needed to explore different aspects of the data or answer additional questions.
-
-## Author - Zero Analyst
-
-This project showcases SQL skills essential for database management and analysis. For more content on SQL and data analysis, connect with me through the following channels:
-
-- **YouTube**: [Subscribe to my channel for tutorials and insights](https://www.youtube.com/@zero_analyst)
 - **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/zero_analyst/)
 - **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
-- **Discord**: [Join our community for learning and collaboration](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your interest in this project!
