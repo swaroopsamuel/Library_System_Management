@@ -8,8 +8,6 @@ SELECT * FROM members;
 
 -- Project Task
 
---*EASY/INTERMEDIATE LEVEL*--
-
 -- Task 1. Create a New Book Record -- "978-1-60129-456-2', 'To Kill a Mockingbird', 'Classic', 6.00, 'yes', 'Harper Lee', 'J.B. Lippincott & Co.')"
 
 
@@ -324,9 +322,9 @@ AS
 	SELECT * 
 	FROM members
 	WHERE member_id IN (SELECT 
-				        DISTINCT (issued_member_id)		
-					 FROM issued_status
-					 WHERE issued_date >= CURRENT_DATE - INTERVAL '6 MONTHS')
+				DISTINCT (issued_member_id)		
+				FROM issued_status
+				WHERE issued_date >= CURRENT_DATE - INTERVAL '6 MONTHS')
 
 
 
