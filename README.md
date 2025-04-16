@@ -529,8 +529,6 @@ SELECT * FROM fined_members
 ## Conclusion
 
 This project demonstrates the application of SQL skills in creating and managing a library management system. It includes database setup, data manipulation, and advanced querying, providing a solid foundation for data management and analysis.
-
-- **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/zero_analyst/)
-- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
+- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/swaroopnakka/)
 
 Thank you for your interest in this project!
